@@ -1,4 +1,4 @@
-package com.exadel.beanpractice.scheduling;
+package com.exadel.beanpractice.scheduling.task;
 
 import com.exadel.beanpractice.publisher.Publisher;
 import lombok.RequiredArgsConstructor;

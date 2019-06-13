@@ -1,4 +1,4 @@
-package com.exadel.beanpractice.util;
+package com.exadel.beanpractice.common.util;
 
 import java.util.Random;
 

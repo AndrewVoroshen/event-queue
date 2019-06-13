@@ -1,30 +1,27 @@
 package com.exadel.beanpractice.publisher.impl;
 
-import com.exadel.beanpractice.event.Event;
-import com.exadel.beanpractice.generator.EventGenerator;
+import com.exadel.beanpractice.event.model.Event;
+import com.exadel.beanpractice.event.generator.EventGenerator;
 import com.exadel.beanpractice.publisher.Publisher;
-import com.exadel.beanpractice.queue.EventQueue;
+import com.exadel.beanpractice.storage.EventStorage;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-import static com.exadel.beanpractice.util.Randomizer.getRandomNumber;
+import static com.exadel.beanpractice.common.util.Randomizer.getRandomNumber;
 
 @RequiredArgsConstructor
 public class DefaultPublisher implements Publisher {
 
-	private final EventQueue eventQueue;
+	private final EventStorage eventStorage;
 
 	private final List<EventGenerator> eventGenerators;
 
 	public void publish() {
-
 		EventGenerator eventGenerator = eventGenerators.get(
 				getRandomNumber(eventGenerators.size())
 		);
-
 		Event generatedEvent = eventGenerator.generate();
-
-		eventQueue.put(generatedEvent);
+		eventStorage.put(generatedEvent);
 	}
 }

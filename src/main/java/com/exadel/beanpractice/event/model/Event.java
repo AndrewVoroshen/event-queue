@@ -1,4 +1,4 @@
-package com.exadel.beanpractice.event;
+package com.exadel.beanpractice.event.model;
 
 import lombok.Builder;
 import lombok.Data;

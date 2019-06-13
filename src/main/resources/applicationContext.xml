@@ -4,20 +4,25 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="publishTask" class="com.exadel.beanpractice.scheduling.PublishTask">
+    <bean id="publishTask" class="com.exadel.beanpractice.scheduling.task.PublishTask">
         <constructor-arg ref="defaultPublisher"/>
+    </bean>
+
+    <bean id="receiveTask" class="com.exadel.beanpractice.scheduling.task.ReceiveTask">
+        <constructor-arg ref="eventStorage"/>
     </bean>
 
     <bean id="customTimer" class="com.exadel.beanpractice.scheduling.CustomTimer"
           init-method="onInit">
         <constructor-arg ref="publishTask"/>
+        <constructor-arg ref="receiveTask"/>
     </bean>
 
     <bean id="systemSubscriber" class="com.exadel.beanpractice.subscriber.impl.SystemSubscriber">
 
     </bean>
 
-    <bean id="eventQueue" class="com.exadel.beanpractice.queue.EventQueue">
+    <bean id="eventStorage" class="com.exadel.beanpractice.storage.EventStorage">
         <constructor-arg name="subscribers">
             <list>
                 <ref bean="systemSubscriber"/>
@@ -26,12 +31,12 @@
         </constructor-arg>
     </bean>
 
-    <bean id="systemEventGenerator" class="com.exadel.beanpractice.generator.SystemEventGenerator">
+    <bean id="systemEventGenerator" class="com.exadel.beanpractice.event.generator.SystemEventGenerator">
 
     </bean>
 
     <bean id="defaultPublisher" class="com.exadel.beanpractice.publisher.impl.DefaultPublisher">
-        <constructor-arg ref="eventQueue"/>
+        <constructor-arg ref="eventStorage"/>
         <constructor-arg name="eventGenerators">
             <list>
                 <ref bean="systemEventGenerator"/>

@@ -1,5 +1,7 @@
 package com.exadel.beanpractice.scheduling;
 
+import com.exadel.beanpractice.scheduling.task.PublishTask;
+import com.exadel.beanpractice.scheduling.task.ReceiveTask;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Timer;
@@ -13,8 +15,11 @@ public class CustomTimer extends Timer {
 
 	private final PublishTask publishTask;
 
+	private final ReceiveTask receiveTask;
+
 	void onInit()
 	{
 		this.schedule(publishTask, DELAY, PERIOD);
+		this.schedule(receiveTask, DELAY, TIME_BASE);
 	}
 }
