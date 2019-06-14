@@ -4,6 +4,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!-- SCHEDULING -->
+
     <bean id="publishTask" class="com.exadel.beanpractice.scheduling.task.PublishTask">
         <constructor-arg ref="defaultPublisher"/>
     </bean>
@@ -18,31 +20,89 @@
         <constructor-arg ref="receiveTask"/>
     </bean>
 
+    <!-- SUBSCRIBERS -->
+
     <bean id="systemSubscriber" class="com.exadel.beanpractice.subscriber.impl.SystemSubscriber">
 
     </bean>
+
+    <bean id="infoSubscriber" class="com.exadel.beanpractice.subscriber.impl.InfoSubscriber">
+
+    </bean>
+
+    <bean id="customSubscriber" class="com.exadel.beanpractice.subscriber.impl.CustomSubscriber">
+
+    </bean>
+
+    <bean id="userSubscriber" class="com.exadel.beanpractice.subscriber.impl.UserSubscriber">
+        <constructor-arg ref="userProvider"/>
+    </bean>
+
+    <bean id="errorSubscriber" class="com.exadel.beanpractice.subscriber.impl.ErrorSubscriber">
+
+    </bean>
+
+    <!-- EVENT STORAGE -->
 
     <bean id="eventStorage" class="com.exadel.beanpractice.storage.EventStorage">
         <constructor-arg name="subscribers">
             <list>
                 <ref bean="systemSubscriber"/>
-                <!--TODO: populate w/ left subscribers-->
+                <ref bean="errorSubscriber"/>
+                <ref bean="infoSubscriber"/>
+                <ref bean="customSubscriber"/>
+                <ref bean="userSubscriber"/>
             </list>
         </constructor-arg>
     </bean>
 
+    <!-- EVENT GENERATORS -->
+
     <bean id="systemEventGenerator" class="com.exadel.beanpractice.event.generator.SystemEventGenerator">
 
     </bean>
+
+    <bean id="userEventGenerator" class="com.exadel.beanpractice.event.generator.UserEventGenerator">
+        <constructor-arg ref="userProvider"/>
+    </bean>
+
+    <bean id="customEventGenerator" class="com.exadel.beanpractice.event.generator.CustomEventGenerator">
+
+    </bean>
+
+    <bean id="infoEventGenerator" class="com.exadel.beanpractice.event.generator.InfoEventGenerator">
+
+    </bean>
+
+    <bean id="errorEventGenerator" class="com.exadel.beanpractice.event.generator.ErrorEventGenerator">
+
+    </bean>
+
+    <!-- USER GENERATORS -->
+    <bean id="userGenerator" class="com.exadel.beanpractice.user.generator.UserGenerator">
+
+    </bean>
+
+    <!-- PUBLISHER -->
 
     <bean id="defaultPublisher" class="com.exadel.beanpractice.publisher.impl.DefaultPublisher">
         <constructor-arg ref="eventStorage"/>
         <constructor-arg name="eventGenerators">
             <list>
                 <ref bean="systemEventGenerator"/>
-                <!--TODO: populate w/ left generators-->
+                <ref bean="infoEventGenerator"/>
+                <ref bean="errorEventGenerator"/>
+                <ref bean="userEventGenerator"/>
+                <ref bean="customEventGenerator"/>
             </list>
         </constructor-arg>
+    </bean>
+
+    <!-- PROVIDERS -->
+
+    <bean id="userProvider" class="com.exadel.beanpractice.provider.impl.UserProvider"
+          init-method="onInit">
+        <constructor-arg ref="userGenerator"/>
     </bean>
 
 </beans>

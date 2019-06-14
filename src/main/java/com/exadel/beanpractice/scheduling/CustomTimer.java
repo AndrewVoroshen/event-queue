@@ -17,7 +17,7 @@ public class CustomTimer extends Timer {
 
 	private final ReceiveTask receiveTask;
 
-	void onInit()
+	private void onInit()
 	{
 		this.schedule(publishTask, DELAY, PERIOD);
 		this.schedule(receiveTask, DELAY, TIME_BASE);

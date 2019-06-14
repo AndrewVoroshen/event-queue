@@ -2,15 +2,15 @@ package com.exadel.beanpractice.event.generator;
 
 import com.exadel.beanpractice.event.model.EventType;
 
-public class SystemEventGenerator extends EventGenerator {
+public class CustomEventGenerator extends EventGenerator {
 
 	@Override
 	protected String generateMessage() {
-		return "system";
+		return "custom";
 	}
 
 	@Override
 	protected EventType generateEventType() {
-		return EventType.SYSTEM;
+		return EventType.CUSTOM;
 	}
 }

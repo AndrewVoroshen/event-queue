@@ -3,7 +3,6 @@ package com.exadel.beanpractice.application;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-@SuppressWarnings("ALL")
 public class Application {
 
 	private static final String DEFAULT_APPLICATION_CONTEXT_LOCATION = "applicationContext.xml";

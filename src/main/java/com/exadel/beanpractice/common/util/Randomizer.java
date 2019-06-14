@@ -4,7 +4,7 @@ import java.util.Random;
 
 public final class Randomizer {
 
-	public static int getRandomNumber(int upperBound) {
+	public static Integer getRandomNumber(Integer upperBound) {
 		return new Random()
 				.nextInt(upperBound);
 	}
